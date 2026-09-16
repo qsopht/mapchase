@@ -68,11 +68,19 @@ app.get('/api/road/snap', async (req, res) => {
   const url  = `https://roads.googleapis.com/v1/snapToRoads?path=${encodeURIComponent(path)}&interpolate=true&key=${apiKey}`;
 
   try {
-    const roadsRes = await fetch(url, { signal: AbortSignal.timeout(3000) });
+    const roadsRes = await fetch(url, {
+      signal: AbortSignal.timeout(3000),
+      headers: { Referer: process.env.APP_URL || 'http://localhost:3000' },
+    });
     const data = await roadsRes.json();
 
+    if (data.error) {
+      console.warn('[Roads API] Error response:', JSON.stringify(data.error));
+      return res.json({ snapped: false, reason: 'api_error', detail: data.error.message });
+    }
+
     if (!data.snappedPoints || data.snappedPoints.length === 0) {
-      return res.json({ snapped: false });
+      return res.json({ snapped: false, reason: 'no_results' });
     }
 
     const pts   = data.snappedPoints;
