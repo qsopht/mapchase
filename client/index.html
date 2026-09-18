@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Road Rally</title>
   <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -100,6 +100,16 @@
 
     <!-- Leave button -->
     <button id="btn-leave-game" class="btn btn-ghost hud-leave-btn">Leave Game</button>
+
+    <!-- Mobile joystick — left-half touch zone; base positioned by JS on touchstart -->
+    <div id="joystick-zone" class="joystick-zone">
+      <div id="joystick-base" class="joystick-base">
+        <div id="joystick-stick" class="joystick-stick"></div>
+      </div>
+    </div>
+
+    <!-- Mobile handbrake button — right side -->
+    <button id="btn-handbrake-touch" class="btn-handbrake-touch">BRAKE</button>
   </div>
 
   <!-- ══ LOADING OVERLAY ════════════════════════════════════════════════ -->
